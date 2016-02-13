@@ -10,9 +10,6 @@ public class SLListAddTester {
 		SLList l = new SLList();
 		assertTrue(l.repOk());
 		l.add(0);
-		// write a sequence of assertTrue method invocations that
-		// perform checks on the values for all the declared fields
-		// of list and node objects reachable from l
 		assertTrue(l.header != null);
 		assertTrue(l != null);
 		assertTrue(l.header.elem == 0);
@@ -28,9 +25,6 @@ public class SLListAddTester {
 		assertTrue(l.repOk());
 		l.add(1);
 		assertTrue(l.repOk());
-		// write a sequence of assertTrue method invocations that
-		// perform checks on the values for all the declared fields
-		// of list and node objects reachable from l
 		assertTrue(l.header != null);
 		assertTrue(l != null);
 		assertTrue(l.header.elem == 0);
