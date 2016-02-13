@@ -62,7 +62,7 @@ public class SLList {
 	}
 	
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		SLList myList = new SLList();
 		myList.add(8);
 		myList.add(6);
@@ -81,6 +81,6 @@ public class SLList {
 		n = n.next;
 		}
 		System.out.println(n.elem);
-	}
+	}*/
 
 }
