@@ -2,8 +2,9 @@ package pset4;
 
 import java.util.*;
 
-import org.apache.bcel.classfile.JavaClass;
-import org.apache.bcel.classfile.Method;
+import org.apache.bcel.Repository;
+import org.apache.bcel.classfile.*;
+import org.apache.bcel.generic.*;
 
 public class CFG {
 	Set<Node> nodes = new HashSet<Node>();
@@ -77,7 +78,32 @@ public class CFG {
 	}
 
 	public boolean isReachable(String methodFrom, String clazzFrom, String methodTo, String clazzTo) {
+		JavaClass jc1 = null;
+		try {
+			jc1 = Repository.lookupClass(clazzFrom);
+		} catch (ClassNotFoundException e) {
+
+			e.printStackTrace();
+		}
+		ClassGen cg1 = new ClassGen(jc1);
+		ConstantPoolGen cpg1 = cg1.getConstantPool();
+
+		InstructionHandle[] ins1 =null;
+		for(Method m : cg1.getMethods()){
+			if(m.getName().equals(methodFrom)){
+				//Assuming no overridden method exists
+				MethodGen mg1 = new MethodGen(m, cg1.getClassName(), cpg1);
+				ins1 = mg1.getInstructionList().getInstructionHandles();
+			}
+		}
+
+		for(InstructionHandle ih1: ins1){
+			Instruction inst = ih1.getInstruction();
+			if(inst instanceof INVOKESTATIC){
+				//Assuming that the invoked method is in the same class
+				if(((INVOKESTATIC) inst).getMethodName(cpg1).contains(methodTo)) return true;
+			}
+		}
 		return false;
-		// you will implement this method in Question 2.2
 	}
 }
