@@ -3,7 +3,7 @@ package pset4;
 public class D {
 	public static void main(String[] a) {
 		foo(a);
-		bar(a);
+		//bar(a);
 	}
 
 	static void foo(String[] a) {

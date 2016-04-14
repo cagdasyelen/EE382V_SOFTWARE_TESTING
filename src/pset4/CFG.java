@@ -79,6 +79,7 @@ public class CFG {
 
 	public boolean isReachable(String methodFrom, String clazzFrom, String methodTo, String clazzTo) {
 		JavaClass jc1 = null;
+		Method mFrom = null;
 		try {
 			jc1 = Repository.lookupClass(clazzFrom);
 		} catch (ClassNotFoundException e) {
@@ -92,17 +93,37 @@ public class CFG {
 		for(Method m : cg1.getMethods()){
 			if(m.getName().equals(methodFrom)){
 				//Assuming no overridden method exists
+				mFrom = m;
 				MethodGen mg1 = new MethodGen(m, cg1.getClassName(), cpg1);
 				ins1 = mg1.getInstructionList().getInstructionHandles();
 			}
 		}
-
-		for(InstructionHandle ih1: ins1){
-			Instruction inst = ih1.getInstruction();
-			if(inst instanceof INVOKESTATIC){
-				//Assuming that the invoked method is in the same class
-				if(((INVOKESTATIC) inst).getMethodName(cpg1).contains(methodTo)) return true;
+		
+		Queue<Method> q = new LinkedList<Method>();
+		Set<Method> visitedMethods = new HashSet<Method>();
+		
+		q.add(mFrom);
+		visitedMethods.add(mFrom);
+		
+		while(!q.isEmpty()){
+			Method tempM = q.poll();
+			MethodGen tempMg = new MethodGen(tempM, cg1.getClassName(),cpg1);
+			InstructionHandle[] tempIh = tempMg.getInstructionList().getInstructionHandles();
+			
+			for(InstructionHandle ih: tempIh){
+				Instruction inst = ih.getInstruction();
+				if(inst instanceof INVOKESTATIC){
+					if(((INVOKESTATIC) inst).getMethodName(cpg1).contains(methodTo)) {
+						return true;
+					}
+					Method addMethod = cg1.containsMethod(((INVOKESTATIC) inst).getMethodName(cpg1), ((INVOKESTATIC) inst).getSignature(cpg1));
+					if(!visitedMethods.contains(addMethod)){
+						q.add(addMethod);
+						visitedMethods.add(addMethod);
+					}
+				}
 			}
+			
 		}
 		return false;
 	}
