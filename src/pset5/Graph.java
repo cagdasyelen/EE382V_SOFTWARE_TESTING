@@ -2,6 +2,9 @@ package pset5;
 
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import static org.junit.Assert.assertEquals;
+
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
@@ -32,6 +35,7 @@ public class Graph {
 	public void addEdge(int from, int to) {
 		// postcondition: adds a directed edge "from" -> "to" to this graph
 		// your code goes here
+		addNode(to);
 		if(nodes.contains(from)){
 			TreeSet<Integer> temp = edges.get(from);
 			temp.add(to);
@@ -55,8 +59,7 @@ public class Graph {
 		// directed path that starts at "n" and ends at "m" in "this"; and
 		// false otherwise
 		
-		if(!nodes.containsAll(sources)) return false;
-		if(!nodes.containsAll(targets)) return false;
+		if(!nodes.containsAll(sources) || !nodes.containsAll(targets)) return false;
 		
 		int control = 0;
 		for(int target : targets){
@@ -87,8 +90,7 @@ public class Graph {
 		}
 		return false;
 	}
-	
-	public static void main(String [] args){
-		
+	public static void main(String[] args) {
+
 	}
 }
