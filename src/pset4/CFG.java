@@ -6,6 +6,14 @@ import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.*;
 import org.apache.bcel.generic.*;
 
+/** 
+ * @author Cagdas Yelen
+ * @see C
+ * @see D
+ * @see GraphGenerator
+ */	
+
+
 public class CFG {
 	Set<Node> nodes = new HashSet<Node>();
 	Map<Node, Set<Node>> edges = new HashMap<Node, Set<Node>>();

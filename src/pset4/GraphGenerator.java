@@ -4,6 +4,13 @@ import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.*;
 import org.apache.bcel.generic.*;
 
+/** 
+ * @author Cagdas Yelen
+ * @see CFG
+ * @see D
+ * @see C
+ */	
+
 
 public class GraphGenerator {
 	public CFG createCFG(String className) throws ClassNotFoundException {
