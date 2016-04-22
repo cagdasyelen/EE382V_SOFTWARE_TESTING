@@ -3,7 +3,6 @@ package pset5;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import static org.junit.Assert.assertEquals;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -88,6 +87,7 @@ public class Graph {
 			int node = (int) q.poll();
 			visitedNodes.add(node);
 			if(node == to) return true;
+			if(edges.get(node) == null) return false;
 			for(int next : edges.get(node)){
 				if(!visitedNodes.contains(next)){
 					q.add(next);
@@ -95,7 +95,5 @@ public class Graph {
 			}
 		}
 		return false;
-	}
-	public static void main(String[] args) {
 	}
 }
