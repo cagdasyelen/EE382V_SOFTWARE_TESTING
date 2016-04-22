@@ -36,7 +36,7 @@ public class GraphGenerator {
 				else if(!(inst instanceof GotoInstruction)){
 					cfg.addEdge(ih.getPosition(), m, jc, ih.getNext().getPosition(), m, jc);
 				}	
-				else if(inst instanceof BranchInstruction){
+				if(inst instanceof BranchInstruction){
 					cfg.addEdge(ih.getPosition(), m, jc, ((BranchInstruction) inst).getTarget().getPosition(), m, jc);
 				}		
 			}
@@ -72,19 +72,20 @@ public class GraphGenerator {
 				else if(!(inst instanceof GotoInstruction)){
 					cfg.addEdge(ih.getPosition(), m, jc, ih.getNext().getPosition(), m, jc);
 				}	
-				else if(inst instanceof BranchInstruction){
+				if(inst instanceof BranchInstruction){
 					cfg.addEdge(ih.getPosition(), m, jc, ((BranchInstruction) inst).getTarget().getPosition(), m, jc);
 				}		
 			}
 		}
 		return cfg;
 	}
+	
 
 	public static void main(String[] a) throws ClassNotFoundException {
 		GraphGenerator gg = new GraphGenerator();
-		gg.createCFG("pset4.C"); // example invocation of createCFG
-		gg.createCFGWithMethodInvocation("pset4.D"); // example invocation of  createCFGWithMethodInovcation
+		//System.out.println(gg.createCFG("pset4.C")); // example invocation of createCFG
+		gg.createCFG("pset4.C1").printCFG();; // example invocation of  createCFGWithMethodInovcation
 
 		
 	}
-}
+} 

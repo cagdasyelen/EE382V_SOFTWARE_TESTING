@@ -135,4 +135,46 @@ public class CFG {
 		}
 		return false;
 	}
+	public void printCFG() {
+		Map<Method, Set<Node>> clusters = new HashMap<Method, Set<Node>>();
+		for (Node n : nodes) {
+		if (!clusters.containsKey(n.getMethod())) {
+		Set<Node> cluster = new HashSet<Node>();
+		cluster.add(n);
+		clusters.put(n.getMethod(), cluster);
+		} else {
+		Set<Node> cluster = clusters.get(n.getMethod());
+		cluster.add(n);
+		}
+		}
+		StringBuilder sb = new StringBuilder();
+		for (Map.Entry<Method, Set<Node>> entry : clusters.entrySet()) {
+		sb.append("Method " + entry.getKey() + ":\n");
+		List<Node> froms = new ArrayList<Node>(entry.getValue());
+		Collections.sort(froms, new Comparator<Node>() {
+		@Override
+		public int compare(Node o1, Node o2) {
+		return o1.position - o2.position;
+		}
+		});
+		for (Node from : froms) {
+		sb.append(" <" + from.toString() + "> -> <");
+		String prefix = "";
+		List<Node> tos = new ArrayList<Node>(edges.get(from));
+		Collections.sort(tos, new Comparator<Node>() {
+		@Override
+		public int compare(Node o1, Node o2) {
+		return o1.position - o2.position;
+		}
+		});
+		for (Node to : tos) {
+		sb.append(prefix + to.toString());
+		prefix = ", ";
+		}
+		sb.append(">\n");
+		}
+		sb.append("\n");
+		}
+		System.out.println(sb.toString());
+		}
 }

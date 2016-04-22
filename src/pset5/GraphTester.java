@@ -13,6 +13,40 @@ public class GraphTester {
 		g.addEdge(0, 1);
 		assertEquals(g.toString(), "nodes: [0, 1]\nedges: {0=[1]}");
 	}
+	
+	@Test
+	public void tae1(){
+		Graph g = new Graph();
+		g.addEdge(0, 0);
+		assertEquals(g.toString(),"nodes: [0]\nedges: {}");
+	}
+	
+	@Test
+	public void tae2(){
+		Graph g = new Graph();
+		g.addEdge(0,1);
+		g.addEdge(0, 2);
+		assertEquals(g.toString(), "nodes: [0, 1, 2]\nedges: {0=[1, 2]}");
+	}
+	
+	@Test
+	public void tae3(){
+		Graph g = new Graph();
+		g.addEdge(0, 1);
+		g.addEdge(1, 0);
+		assertEquals(g.toString(), "nodes: [0, 1]\nedges: {0=[1], 1=[0]}");	
+	}
+	
+	@Test
+	public void tae4(){
+		Graph g = new Graph();
+		g.addEdge(0, 0);
+		g.addEdge(1, 2);
+		g.addEdge(1, 0);
+		g.addEdge(0, 2);
+		assertEquals(g.toString(), "nodes: [0, 1, 2]\nedges: {0=[2], 1=[0, 2]}");	
+		
+	}
 
 	// your tests for method "addEdge" in class "Graph" go here
 	// you must provide at least 4 test methods;
@@ -31,6 +65,10 @@ public class GraphTester {
 		nodes.add(0);
 		assertTrue(g.reachable(nodes, nodes));
 	}
+	
+
+	
+	
 	// your tests for method "reachable" in class "Graph" go here
 	// you must provide at least 6 test methods;
 	// each test method must have at least 1 invocation of reachable;

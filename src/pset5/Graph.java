@@ -35,8 +35,14 @@ public class Graph {
 	public void addEdge(int from, int to) {
 		// postcondition: adds a directed edge "from" -> "to" to this graph
 		// your code goes here
+		
+		if(from == to){
+			nodes.add(from);
+			return;
+		}
+		
 		addNode(to);
-		if(nodes.contains(from)){
+		if(nodes.contains(from) && edges.get(from) != null){
 			TreeSet<Integer> temp = edges.get(from);
 			temp.add(to);
 			edges.put(from, temp);
@@ -91,6 +97,5 @@ public class Graph {
 		return false;
 	}
 	public static void main(String[] args) {
-
 	}
 }
