@@ -2,6 +2,7 @@ package pset6;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.BeforeClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,12 +31,19 @@ public class MinWebTestGenerator {
 	String imports() {
 		return "import static org.junit.Assert.*;\n\n" + "import org.junit.Test;\n\n"
 				+ "import org.openqa.selenium.By;\n" + "import org.openqa.selenium.WebDriver;\n"
-				+ "import org.openqa.selenium.WebElement;\n" + "import org.openqa.selenium.firefox.FirefoxDriver;\n";
+				+ "import org.openqa.selenium.WebElement;\n" + "import org.openqa.selenium.firefox.FirefoxDriver;\n"
+				+ "import org.junit.AfterClass;\n" + "import org.junit.BeforeClass;\n";
 	}
 
 	String testsuite() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("public class MinWebTestSuite {\n");
+		sb.append("\tprivate static WebDriver wd;\n\n\t");
+		sb.append("@BeforeClass\n\t");
+		sb.append("public static void startBrowser() {\n\t\t");
+		sb.append("wd = new FirefoxDriver();\n\t");
+		sb.append("}\n\n");
+		
 
 		// your code goes here
 		// ...
@@ -57,6 +65,11 @@ public class MinWebTestGenerator {
 				}
 			}
 		}
+		
+		sb.append("@AfterClass\n\t");
+		sb.append("public static void quitBrowser() {\n\t\t");
+		sb.append("wd.quit();\n\t");
+		sb.append("}\n\n");
 
 		sb.append("\n");
 		sb.append("}\n");
@@ -86,9 +99,8 @@ public class MinWebTestGenerator {
 		s.append("\t@Test\n\t");
 		s.append("public void t" + testNum + "(){\n\t\t");
 
-		s.append("WebDriver wd = new FirefoxDriver();\n\t\t");
-		s.append(
-				"wd.get(\"file:///Users/cagdasyelen/Documents/workspace/EE382V_SOFTWARE_TESTING/src/pset6/min.html\");\n\t\t");
+		//s.append("WebDriver wd = new FirefoxDriver();\n\t\t");
+		s.append("wd.get(\"file:///Users/cagdasyelen/Documents/workspace/EE382V_SOFTWARE_TESTING/src/pset6/min.html\");\n\t\t");
 		s.append("WebElement we = wd.findElement(By.id(\"x\"));\n\t\t");
 		s.append("we.sendKeys(\"" + x + "\");\n\t\t");
 		s.append("we = wd.findElement(By.id(\"y\"));\n\t\t");
@@ -116,7 +128,7 @@ public class MinWebTestGenerator {
 			s.append("assertEquals(\"\", output);\n\t\t");
 			
 		}
-		s.append("wd.quit();\n\t");
+		//s.append("wd.quit();\n\t");
 
 		s.append("}\n\n");
 		return s.toString();
