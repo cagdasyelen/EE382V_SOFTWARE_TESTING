@@ -15,13 +15,15 @@ public class MinWebTest {
         // execute the test <x = 0, y = 0, z = 0, submitButton = click> and check the output message is correct
         WebDriver wd = new FirefoxDriver(); // launch the browser
         // edit the next line to enter the location of "min.html" on your file system
-        wd.get("file:///Users/cagdasyelen/Documents/workspace/EE382V_SOFTWARE_TESTING/src/pset6/min.html");
+        wd.get("file:///Users/cagdasyelen/Documents/workspace/EE382V_SOFTWARE_TESTING/src/pset6/minandmax.html");
         WebElement we = wd.findElement(By.id("x"));
         we.sendKeys("0"); // enter 0 for x
         we = wd.findElement(By.id("y"));
         we.sendKeys("0"); // enter 0 for y
         we = wd.findElement(By.id("z"));
         we.sendKeys("0"); // enter 0 for z
+        we = wd.findElement(By.id("min"));
+        we.click();
         we = wd.findElement(By.id("computeButton"));
         we.click();
         WebElement result = wd.findElement(By.id("result"));
